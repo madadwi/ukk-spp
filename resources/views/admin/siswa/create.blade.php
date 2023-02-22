@@ -47,33 +47,30 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <select name="kelas_id">
-                            <option selected>Pilih Kelas</option>
-                            @foreach ($kelas as $row)
-                            <option {{ $row->id == old('kelas_id') ? 'selected' : '' }} value="{{ $row->id }}">
-                                {{ $row->nama_kelas }}
-                            </option>
-                            @endforeach
-                        </select>
+                    <strong>Alamat</strong>
+                        <textarea name="alamat" class="form-control" cols="30" rows="4"></textarea>
+                </div>
+            </div>
+             <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Spp</strong>
+                    <select name="spp_id" name="role" id="" class="form-control">
+                         <option selected>Pilih Spp</option>
+                      @foreach ($spp as $row)
+                    <option {{ $row->id == old('spp_id') ? 'selected' : '' }} value="{{ $row->id }}"> {{ $row->nominal }}</option>
+                    @endforeach
+                    </select>
                 </div>
             </div>
               <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    {{-- <strong>Kelas</strong>
-                     <select name="kelas_id" id="" class="form-control">
-
-                        @foreach($kelas as $row)
-                    <option value="{{$row->nama_kelas}}">{{$row->nama_kelas}}</option>
+                    <strong>Kelas</strong>
+                    <select name="kelas_id" name="role" id="" class="form-control">
+                         <option selected>Pilih Kelas</option>
+                      @foreach ($kelas as $row)
+                    <option {{ $row->id == old('kelas_id') ? 'selected' : '' }} value="{{ $row->id }}"> {{ $row->nama_kelas }}</option>
                     @endforeach
-                    </select> --}}
-                    <select name="spp_id">
-                            <option selected>Pilih spp</option>
-                            @foreach ($spp as $row)
-                            <option {{ $row->id == old('spp_id') ? 'selected' : '' }} value="{{ $row->id }}">
-                                {{ $row->tahun }}
-                            </option>
-                            @endforeach
-                        </select>
+                    </select>
                 </div>
             </div>
                <div class="col-xs-12 col-sm-12 col-md-12">

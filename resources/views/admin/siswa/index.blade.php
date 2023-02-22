@@ -22,7 +22,9 @@
             <th>No.</th>
             <th>Nisn</th>
             <th>Nis</th>
+            <th>Nama</th>
             <th>Kelas</th>
+            <th>Alamat</th>
             <th>Spp</th>
             <th>Nomor tlp</th>
             <th width="160px">Action</th>
@@ -32,7 +34,9 @@
                 <td>{{ ++$i }}</td>
                 <td>{{ $data->nisn }}</td>
                 <td>{{ $data->nis }}</td>
+                <td>{{ $data->nama }}</td>
                 <td>{{ $data->kelas->nama_kelas }}</td>
+                <td>{{ $data->alamat }}</td>
                 <td>{{ $data->spp->tahun }}</td>
                 <td>{{ $data->no_telp }}</td>
                 <td>

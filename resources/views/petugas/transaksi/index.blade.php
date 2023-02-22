@@ -5,9 +5,9 @@
             <div class="pull-left">
                 <h2>Pembayaran</h2>
             </div>
-            <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('pembayaran.create') }}"> Import</a>
-            </div>
+            {{-- <div class="pull-right">
+                <a class="btn btn-success" href="{{ route('pembayaran.create') }}"> </a>
+            </div> --}}
         </div>
     </div>
 

@@ -92,14 +92,14 @@
 
                 @endif
 
-                {{-- @if (auth()->user()->role == 'Siswa')
+                @if (auth()->user()->role == 'Siswa')
                     <li class="{{ request()->is('/siswas/histori') ? 'active' : '' }} nav-item">
                         <a class="nav-link collapsed" href="{{ route('histori.index') }}">
                             <i class="fa-solid fa-file-invoice"></i>
                             <span>Histori</span>
                         </a>
                     </li>
-                @endif --}}
+                @endif
 
                 <li class="nav-item">
                     <a class="nav-link" href="/logout">

@@ -51,16 +51,26 @@
                     <input type="number" name="jumlah_bayar" class="form-control">
                 </div>
             </div>
-             <div class="col-xs-12 col-sm-12 col-md-12">
+               <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <select name="siswa_id">
-                            <option selected>Pilih Spp</option>
-                            @foreach ($siswa as $row)
-                            <option {{ $row->id == old('siswa_id') ? 'selected' : '' }} value="{{ $row->id }}">
-                                {{ $row->spp->nominal }}
-                            </option>
-                            @endforeach
-                        </select>
+                    <strong>Spp</strong>
+                    <select name="siswa_id" name="role" id="" class="form-control">
+                         <option selected>Pilih Spp</option>
+                      @foreach ($siswa as $row)
+                    <option {{ $row->id == old('siswa_id') ? 'selected' : '' }} value="{{ $row->id }}"> {{ $row->spp->nominal }}</option>
+                    @endforeach
+                    </select>
+                </div>
+            </div>
+               <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Nisn</strong>
+                    <select name="siswa_id" name="role" id="" class="form-control">
+                         <option selected>Pilih Nisn</option>
+                      @foreach ($siswa as $row)
+                    <option {{ $row->id == old('siswa_id') ? 'selected' : '' }} value="{{ $row->id }}"> {{ $row->nisn }}</option>
+                    @endforeach
+                    </select>
                 </div>
             </div>
             {{-- <div class="col-xs-12 col-sm-12 col-md-12">

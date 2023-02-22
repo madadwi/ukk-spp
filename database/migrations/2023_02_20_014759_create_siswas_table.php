@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('nisn');
             $table->string('nis');
+            $table->string('alamat');
             $table->foreignUuid('kelas_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignUuid('spp_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('nama');

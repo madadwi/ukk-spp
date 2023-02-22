@@ -41,6 +41,7 @@ class SiswaController extends Controller
             'kelas_id' => ['required'],
             'spp_id' => ['required'],
             'nama' => ['required', 'max:255', 'string'],
+            'alamat' => ['required', 'max:255', 'string'],
             'no_telp' => ['required', 'max:255', 'string'],
         ]);
         Siswa::create($validatedData);
@@ -58,17 +59,30 @@ class SiswaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Siswa $siswa)
     {
-        //
+        $kelas = Kelas::all();
+        $spp = Spp::all();
+        return view('admin.siswa.edit', compact('kelas', 'spp', 'siswa'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Siswa $siswa)
     {
-        //
+        $request->validate([
+            'nisn' => ['required', 'max:255', 'string'],
+            'nis' => ['required', 'max:255', 'string'],
+            'kelas_id' => ['required'],
+            'spp_id' => ['required'],
+            'nama' => ['required', 'max:255', 'string'],
+            'alamat' => ['required', 'max:255', 'string'],
+            'no_telp' => ['required', 'max:255', 'string'],
+        ]);
+
+        $siswa->update($request->all());
+        return to_route('siswa.index')->with('success', 'Berhasil mengedit Siswa!');
     }
 
     /**

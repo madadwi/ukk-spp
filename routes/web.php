@@ -6,6 +6,7 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\PetugaController;
+use App\Http\Controllers\HistoriController;
 use App\Http\Controllers\PetugasController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PembayaranpetugasController;
@@ -49,4 +50,6 @@ Route::middleware('login')->group(function () {
     Route::get('/siswas', function () {
         return view('siswas.index');
     })->name('siswas.index')->middleware('siswa');
+
+    Route::resource('/siswas/histori', HistoriController::class)->middleware('siswa');
 });
