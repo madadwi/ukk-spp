@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Siswa;
 use App\Models\Petugas;
+use App\Models\Tunggakan;
 use App\Models\Pembayaran;
 use App\Exports\UsersExport;
 use Illuminate\Http\Request;
@@ -22,6 +23,7 @@ class PembayaranController extends Controller
         $pembayaran = Pembayaran::oldest()->paginate(5);
         return view('admin.pembayaran.index', compact('pembayaran'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
+
     public function export()
     {
         return Excel::download(new UsersExport(), 'transaksi.xlsx');
@@ -31,9 +33,9 @@ class PembayaranController extends Controller
      */
     public function create()
     {
-        $petugas = User::all();
+        $tunggakans = Tunggakan::all();
         $siswa = Siswa::all();
-        return view('admin.pembayaran.create', compact('petugas', 'siswa'));
+        return view('admin.pembayaran.create', compact('siswa', 'tunggakans'));
     }
 
     /**
@@ -41,19 +43,73 @@ class PembayaranController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $rules = [
             'siswa_id' => ['required'],
-            'tgl_bayar' => ['required', 'date'],
-            'bulan_bayar' => ['required', 'max:255', 'string'],
-            'tahun_bayar' => ['required', 'max:255', 'string'],
+            'tunggakan' => ['required'],
+            'bulan_dibayar' => ['required', 'numeric'],
             'jumlah_bayar' => ['required']
-        ]);
-        Pembayaran::create($validatedData);
-        return redirect()->route('pembayaran.index')->with('success', 'Berhasil Menyimpan !');
+        ];
+
+        if ($request->tunggakan) {
+            $tunggakan = Tunggakan::find($request->tunggakan);
+            array_push($rules['bulan_dibayar'], 'max:' . $tunggakan->sisa_bulan);
+            array_push($rules['jumlah_bayar'], 'max:' . $tunggakan->sisa_tunggakan);
+        }
+
+        $validatedData = $request->validate($rules);
+
+        if ($request->tunggakan) {
+            $tunggakan = Tunggakan::find($request->tunggakan);
+            $tunggakan->sisa_bulan -= $request->bulan_dibayar;
+            $tunggakan->sisa_tunggakan -= $request->jumlah_bayar;
+            $tunggakan->save();
+
+            $validatedData['total'] = $tunggakan->total_tunggakan - $request->jumlah_bayar;
+            $validatedData['tunggakan_id'] = $request->tunggakan;
+            $validatedData['date'] = date('Y-m-d');
+            unset($validatedData['tunggakan']);
+
+            Pembayaran::create($validatedData);
+
+            return to_route('pembayaran.index')->with('success', 'Berhasil menyimpan data Entri Pembayaran');
+        }
     }
 
+    // public function bayar($id)
+    // {
+    //     return view('admin.pembayaran.bayar', [
+    //         'transaksi' => Pembayaran::find($id),
+    //         'tunggakan' => Tunggakan::latest()->get()
+    //     ]);
+    // }
+
+    // public function buat(Request $request, $id)
+    // {
+    //     $transaksi = Pembayaran::find($id);
+    //     $rules = [
+    //         'bayar' => ['required', 'numeric', 'min:' . $transaksi->total],
+    //     ];
+    //     if ($request->bayar) {
+    //         $bayar = Tunggakan::find($request->bayar);
+    //         array_push($rules['bayar'], 'max:' . $bayar->sisa_tunggakan);
+    //     }
+    //     $validatedData = $request->validate($rules);
+    //     if ($request->bayar) {
+    //         $bayar = Tunggakan::find($request->bayar);
+    //         $bayar->sisa_tunggakan -= $request->bayar;
+    //         $bayar->save();
+    //         unset($validatedData['tunggakan']);
+    //         $validatedData['status'] = 'Lunas';
+
+    //         $transaksi->update($validatedData);
+    //     }
+    //     return to_route('pembayaran.index')->with('success', 'Berhasil bayar');
+    // }
+
+
+
     /**
-     * Display the specified resource.
+
      */
     public function show(string $id)
     {
@@ -81,6 +137,10 @@ class PembayaranController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $category = Pembayaran::findOrFail($id);
+        if ($category) {
+            $category->delete();
+            return redirect()->route('pembayaran.index')->with('success', 'Berhasil Hapus!');
+        }
     }
 }

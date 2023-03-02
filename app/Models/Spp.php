@@ -16,4 +16,8 @@ class Spp extends Model
     {
         return $this->hasMany(Siswa::class);
     }
+    public function tunggakans(): HasMany
+    {
+        return $this->hasMany(Tunggakan::class);
+    }
 }

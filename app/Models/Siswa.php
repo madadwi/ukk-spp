@@ -10,9 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Siswa extends Model
 {
-    use
-        HasFactory,
-        HasUuids;
+    use HasFactory, HasUuids;
     protected $guarded = ['id'];
 
     public function kelas(): BelongsTo
@@ -23,8 +21,16 @@ class Siswa extends Model
     {
         return $this->belongsTo(Spp::class);
     }
+    public function tunggakans(): HasMany
+    {
+        return $this->hasMany(Tunggakan::class);
+    }
     public function pembayarans(): HasMany
     {
         return $this->hasMany(Pembayaran::class);
+    }
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class);
     }
 }

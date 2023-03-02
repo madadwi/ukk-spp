@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Siswa;
 use App\Models\Pembayaran;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 class HistoriController extends Controller
 {
@@ -14,7 +17,7 @@ class HistoriController extends Controller
      */
     public function index()
     {
-        $pembayaran = Pembayaran::oldest()->paginate(5);
+        $pembayaran = Auth::user()->siswa->pembayarans;
         return view('siswas.histori.index', compact('pembayaran'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 

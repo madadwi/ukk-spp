@@ -5,9 +5,6 @@
             <div class="pull-left">
                 <h2>Pembayaran</h2>
             </div>
-            {{-- <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('pembayaran.create') }}"> </a>
-            </div> --}}
         </div>
     </div>
 
@@ -18,26 +15,30 @@
         </div>
     @endif
     <table class="table table-bordered">
-        <tr>
-            <th>No.</th>
-            <th>Nisn</th>
-            <th>Tanggal Bayar</th>
-            <th>Bulan Bayar</th>
-            <th>Tahun Bayar</th>
-            <th>Spp</th>
-            <th>Jumlah Bayar</th>
+      <tr>
+                    {{-- Table Header --}}
+                    <th>No</th>
+                    <th>Nis</th>
+                    <th>Nisn</th>
+                    <th>Nama Siswa</th>
+                    <th>Bulan Dibayar</th>
+                    <th>Jumlah dibayar</th>
+                    <th>Total Tunggakan</th>
+                    <th>Tanggal</th>
+                    <th>Status</th>
 
-
-        </tr>
-    @foreach ($pembayaran as $data)
-            <tr>
-                <td>{{ ++$i }}</td>
-                <td>{{ $data->siswa->nama }}</td>
-                <td>{{ $data->tgl_bayar }}</td>
-                <td>{{ $data->bulan_bayar }}</td>
-                <td>{{ $data->tahun_bayar }}</td>
-                <td>{{ $data->siswa->nama }}</td>
-                <td>{{ $data->jumlah_bayar }}</td>
+                </tr>
+                @forelse ($pembayaran as $row)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                       <td>{{ $row->siswa->nis }}</td>
+                        <td>{{ $row->siswa->nisn }}</td>
+                        <td>{{ $row->siswa->nama }}</td>
+                        <td>{{ $row->bulan_dibayar }}</td>
+                        <td>Rp {{ number_format($row->jumlah_bayar, 0, ',', '.') }}</td>
+                        <td>Rp {{ number_format($row->total, 0, ',', '.') }}</td>
+                        <td>{{ $row->date }}</td>
+                        <td>{{ $row->status }}</td>
             </tr>
             @endforeach
     </table>

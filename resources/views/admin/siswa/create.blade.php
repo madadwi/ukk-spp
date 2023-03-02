@@ -54,10 +54,10 @@
              <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Spp</strong>
-                    <select name="spp_id" name="role" id="" class="form-control">
+                    <select name="spp_id" id="" class="form-control">
                          <option selected>Pilih Spp</option>
                       @foreach ($spp as $row)
-                    <option {{ $row->id == old('spp_id') ? 'selected' : '' }} value="{{ $row->id }}"> {{ $row->nominal }}</option>
+                    <option {{ $row->id == old('spp_id') ? 'selected' : '' }} value="{{ $row->id }}"> {{ $row->tahun }}</option>
                     @endforeach
                     </select>
                 </div>

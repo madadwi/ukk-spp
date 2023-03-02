@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Siswa;
 use App\Models\Petugas;
+use App\Models\Pembayaran;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\RedirectResponse;
@@ -25,7 +27,8 @@ class PetugasController extends Controller
     public function create()
     {
         $petugas = User::all();
-        return view('admin.petugass.create', compact('petugas'));
+        $siswa = Siswa::all();
+        return view('admin.petugass.create', compact('petugas', 'siswa'));
     }
 
     /**
@@ -38,6 +41,7 @@ class PetugasController extends Controller
             'username' => 'required',
             'password' => 'required',
             'role' => 'required',
+            'siswa_id' => 'nullable'
         ]);
         $validateData['password'] = bcrypt($validateData['password']);
 

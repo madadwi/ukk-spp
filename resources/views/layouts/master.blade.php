@@ -74,6 +74,12 @@
                         <span>Siswa</span>
                     </a>
                 </li>
+                <li class="{{ request()->is('/admin/tunggakan') ? 'active' : '' }} nav-item">
+                    <a class="nav-link collapsed" href="{{ route('tunggakan.index') }}">
+                        <i class="fas fa-user"></i>
+                        <span>Tunggakan</span>
+                    </a>
+                </li>
                  <li class="{{ request()->is('/admin/pembayaran') ? 'active' : '' }} nav-item">
                     <a class="nav-link collapsed" href="{{ route('pembayaran.index') }}">
                         <i class="fas fa-user"></i>
@@ -86,7 +92,7 @@
                     <li class="{{ request()->is('/petugas/transaksi') ? 'active' : '' }} nav-item">
                         <a class="nav-link collapsed" href="{{ route('transaksi.index') }}">
                             <i class="fa-solid fa-file-invoice"></i>
-                            <span>petugas</span>
+                            <span>Entri Pembayaran</span>
                         </a>
                     </li>
 

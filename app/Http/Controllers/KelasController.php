@@ -49,35 +49,13 @@ class KelasController extends Controller
         return to_route('kelas.index')->with('success', 'Berhasil menambah Kelas baru!');
     }
 
-    // /**
-    //  * Display the specified resource.
-    //  *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function show($id)
-    // {
-    //     //
-    // }
 
-    // /**
-    //  * Show the form for editing the specified resource.
-    //  *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
     public function edit(Kelas $kelas)
     {
         return view('admin.kelas.edit', compact('kelas'));
     }
 
-    // /**
-    //  * Update the specified resource in storage.
-    //  *
-    //  * @param  \Illuminate\Http\Request  $request
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
+
     public function update(Request $request, Kelas $kelas)
     {
         $request->validate([
@@ -89,12 +67,7 @@ class KelasController extends Controller
         return to_route('kelas.index')->with('success', 'Berhasil mengedit Kelas!');
     }
 
-    // /**
-    //  * Remove the specified resource from storage.
-    //  *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
+
     public function destroy($id)
     {
         $category = Kelas::findOrFail($id);

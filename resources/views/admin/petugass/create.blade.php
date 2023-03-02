@@ -27,6 +27,17 @@
     <form action="{{ route('petugass.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row">
+             <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Nama nama</strong>
+                    <select name="siswa_id" id="" class="form-control">
+                         <option selected>Pilih nama</option>
+                      @foreach ($siswa as $row)
+                    <option {{ $row->id == old('siswa_id') ? 'selected' : '' }} value="{{ $row->id }}"> {{ $row->nama }}</option>
+                    @endforeach
+                    </select>
+                </div>
+            </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Nama Petugas</strong>
@@ -51,6 +62,8 @@
                     <strong>Role</strong>
                     <input type="radio" name="role" value="Admin"> Admin
                     <input type="radio" name="role" value="Petugas"> Petugas
+                    <input type="radio" name="role" value="Siswa"> Siswa
+
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
